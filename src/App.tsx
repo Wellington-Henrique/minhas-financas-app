@@ -1,14 +1,24 @@
 
-import { ModalReceita } from './components/ModalReceita';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
-import './App.css'
+import { BrowserRouter } from 'react-router-dom';
+
+import { Theme } from './styles/Theme';
+import { AppRoutes } from './routes';
+
+import { GlobalStyle } from './styles/global';
+import { Container } from './styles';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <>
-      Página inicial
-    </>
+    <Container>
+      <BrowserRouter>
+        <Theme>
+          <AppRoutes />
+          <GlobalStyle />
+        </Theme>
+      </BrowserRouter>
+    </Container>
   )
 }
 
