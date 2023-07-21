@@ -12,7 +12,7 @@ import { ImExit } from 'react-icons/im';
 import { Container } from './styles';
 
 const Sidebar = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [ isMenuOpen, setIsMenuOpen ] = useState(false);
 
     const toogle = () => setIsMenuOpen(!isMenuOpen);
 

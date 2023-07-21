@@ -37,17 +37,19 @@ export default function ({ receitas, handleLoad, handleDelete, handleOpen, handl
   return (
       <Container className='w-100'>
           <thead>
-            <th>Descrição</th>
-            <th>Valor</th>
-            <th className='text-center'>Categoria</th>
-            <th className='text-center'>Vencimento</th>
-            <th className='text-center'>Status</th>
-            <th className="text-center">Ação</th>
+            <tr>
+              <th>Descrição</th>
+              <th>Valor</th>
+              <th className='text-center'>Categoria</th>
+              <th className='text-center'>Vencimento</th>
+              <th className='text-center'>Status</th>
+              <th className="text-center">Ação</th>
+            </tr>
           </thead>
 
           <tbody>
             {receitas.map(receita => 
-              <tr>
+              <tr key={receita.id}>
                 <td>{receita.description}</td>
                 <td className='text-center'>{receita.price && currencyFormatter(receita.price)}</td>
                 <td className='text-center'>{receita.categoryId && categories.find(category => category.id === receita.categoryId)?.description}</td>

@@ -40,7 +40,7 @@ export default function({current, onChange} : FormReceitaProps) {
                 className='col-lg-4 col-md-4 col-mb-6'
                 title='Vencimento'
                 name="dueDate"
-                value={current?.dueDate?.toString()}
+                value={current?.dueDate}
                 onChange={onChange}
             />
             

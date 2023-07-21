@@ -14,8 +14,8 @@ import { initialValues } from './data';
 import Total from '../../components/Total';
 
 interface SearchData {
-  startDate: string
-  endDate: string
+  startDate: Date
+  endDate: Date
 }
 
 export default function Receitas() {
@@ -89,7 +89,7 @@ export default function Receitas() {
 
   const getReceitas = async () => {
     setIsLoading(true);
-
+    
     await getReceitasByDate(filter.startDate, filter.endDate)
     .then(resp => { 
         setReceitas(resp.data ?? []);
@@ -125,27 +125,29 @@ export default function Receitas() {
   }
 
   const getTotals = (receitas: ReceitaData[]) => {
-    const tot = receitas.reduce(function(total, receita) {
-      if (!receita.price) return total;
-
-      return total + receita.price;
-    }, 0);
-
-    const payed = receitas.reduce(function(total, receita) {
-      if (!receita.price || receita.status === 0) return total;
-
-      return total + receita.price;
-    }, 0);
-
-    const pending = receitas.reduce(function(total, receita) {
-      if (!receita.price || receita.status === 1) return total;
-
-      return total + receita.price;
-    }, 0);
-
-    setTotal(tot);
-    setPayed(payed);
-    setPending(pending);
+    if (receitas?.length) {
+      const tot = receitas.reduce(function(total, receita) {
+        if (!receita.price) return total;
+  
+        return total + receita.price;
+      }, 0);
+  
+      const payed = receitas.reduce(function(total, receita) {
+        if (!receita.price || receita.status === 0) return total;
+  
+        return total + receita.price;
+      }, 0);
+  
+      const pending = receitas.reduce(function(total, receita) {
+        if (!receita.price || receita.status === 1) return total;
+  
+        return total + receita.price;
+      }, 0);
+  
+      setTotal(tot);
+      setPayed(payed);
+      setPending(pending);
+    }
   }
 
   return (

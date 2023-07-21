@@ -40,10 +40,12 @@ export const Container = styled.div`
 
         input {
             padding: 5px 10px;
-            color: ${({theme}) => theme.colors.white};
-            background-color: ${({theme}) => theme.colors.gray800};
             border: solid 1px ${({theme}) => theme.colors.gray700};
             border-radius: var(--bs-border-radius);
+        }
+
+        button {
+            height: 35px;
         }
     }
 
