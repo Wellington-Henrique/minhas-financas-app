@@ -6,7 +6,6 @@ export const Container = styled.div`
 
     background: ${({theme}) => theme.colors.gray800};
 
-    
     display: flex;
     flex-direction: column;
     
@@ -17,5 +16,9 @@ export const Container = styled.div`
         
         border-radius: 5px;
         flex: 1;
+
+        h5 {
+            color: ${({theme}) => theme.colors.white};
+        }
     }
 `

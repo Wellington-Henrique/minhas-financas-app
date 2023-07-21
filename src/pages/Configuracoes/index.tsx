@@ -1,12 +1,12 @@
 import { HeaderPage } from '../../components/HeaderPage';
 import { Container } from './styles';
 
-export default function Despesas() {
+export default function Configuracoes() {
   return (
     <Container>
-      <HeaderPage title='Despesas'/>
+      <HeaderPage title='Configurações'/>
       <div>
-        teste
+        <h5>Hum... Este recurso ainda não foi implementado.</h5>
       </div>
     </Container>
   )

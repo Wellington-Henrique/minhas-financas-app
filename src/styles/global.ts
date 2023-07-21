@@ -19,7 +19,6 @@ export const GlobalStyle = createGlobalStyle`
   body {
     background: ${({ theme }) => theme.colors.gray900};
     -webkit-font-smoothing: antialiased;
-    color: ${({ theme }) => theme.colors.white};
   }
 
   body,

@@ -3,7 +3,11 @@ import{ useState } from 'react';
 import MenuLink from '../MenuLink';
 
 import { CgMenu } from 'react-icons/cg';
-import { IoMdHome } from 'react-icons/io';
+import { LuLayoutDashboard } from 'react-icons/lu';
+import { FaMoneyBillWave } from 'react-icons/fa';
+import { FaMoneyBillAlt } from 'react-icons/fa';
+import { AiOutlineSetting } from 'react-icons/ai';
+import { ImExit } from 'react-icons/im';
 
 import { Container } from './styles';
 
@@ -20,8 +24,11 @@ const Sidebar = () => {
             
             <nav>
                 <ul>
-                    <MenuLink path='/receitas' Icon={IoMdHome} title='Receitas'/>
-                    <MenuLink path='/despesas' Icon={IoMdHome} title='Despesas'/>
+                    <MenuLink path='/dashboard' Icon={LuLayoutDashboard} title='Dashboard'/>
+                    <MenuLink path='/income' Icon={FaMoneyBillWave} title='Receitas'/>
+                    <MenuLink path='/expense' Icon={FaMoneyBillAlt} title='Despesas'/>
+                    <MenuLink path='/settings' Icon={AiOutlineSetting} title='Configurações'/>
+                    <MenuLink path='/login' Icon={ImExit} title='Sair'/>
                 </ul>
             </nav>
         </Container>

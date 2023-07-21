@@ -1,17 +1,17 @@
-export const numberFormatterCompact = (value: number, locale='pr-BR') => {
+export const numberFormatterCompact = (value: number, locale='pt-BR') => {
 	return new Intl.NumberFormat(locale, {
 		notation: 'compact'
 	}).format(value);
 }
 
-export const currencyFormatter = (currency: number, locale='pr-BR') => {
+export const currencyFormatter = (currency: number, locale='pt-BR') => {
 	return new Intl.NumberFormat(locale, {
 		currency: 'BRL',
 		style: 'currency'
 	}).format(currency);
 };
 
-export const dateFormatter = (date: Date, locale='pr-BR') => {
+export const dateFormatter = (date: Date, locale='pt-BR') => {
 	return new Intl.DateTimeFormat(locale, {
 		dateStyle: 'short'
 		//day: '2-digit',
@@ -21,7 +21,7 @@ export const dateFormatter = (date: Date, locale='pr-BR') => {
 	}).format(date);
 };
 
-export const relativeDateFormatter = (amount: number, date: Date, locale='pr-BR') => {
+export const relativeDateFormatter = (amount: number, date: Date, locale='pt-BR') => {
 	return new Intl.RelativeTimeFormat(locale, {
 		numeric: 'auto'
 	}).format(amount, 'day');

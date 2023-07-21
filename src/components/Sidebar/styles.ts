@@ -6,9 +6,10 @@ interface ContainerProps {
 
 export const Container = styled.aside<ContainerProps>`
   background-color: ${({ theme }) => theme.colors.gray900};
+  border-right: solid 1px ${({ theme }) => theme.colors.gray700};
 
   ${({isMenuOpen}) =>  
-    isMenuOpen ? css`width: 250px;` : css`width: 70px;`
+    isMenuOpen ? css`width: 250px;` : css`width: 75px;`
   }
 
   overflow: hidden;
@@ -37,14 +38,13 @@ export const Container = styled.aside<ContainerProps>`
     }
 
     svg {
-      font-size: 35px;
+      font-size: 40px;
       padding: 0.4rem;
       color: ${({theme}) => theme.colors.white};
+      border-radius: 50%;
 
       &:hover {
         background-color: ${({ theme }) => theme.colors.gray700};
-        border-radius: 50%;
-        font-size: 40px;
       }
     }
   }
@@ -66,7 +66,11 @@ export const Container = styled.aside<ContainerProps>`
 
     li {
       border-radius: 4px;
-      
+      transition: ease-in 0.3s;
+
+      border-top: 1px solid ${({ theme }) => theme.colors.gray700};
+      border-bottom: 1px solid ${({ theme }) => theme.colors.gray700};
+
       a {
         width: 100%;
         position: relative;
@@ -77,7 +81,7 @@ export const Container = styled.aside<ContainerProps>`
         gap: 0.5rem;
 
         svg {
-          font-size: 35px;
+          font-size: 40px;
           padding: 0.4rem;
           fill: ${({ theme }) => theme.colors.white};
 
