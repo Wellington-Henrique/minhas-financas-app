@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+
+import { createReceita, updateReceita } from '../../services/receitaService';
 import { ReceitaData } from '../../interfaces/Receita';
 import { initialValues } from './data';
-import { Container } from './styles';
-import { Input } from '../Input';
-import { Select } from '../Select';
-import { CategoriaData } from '../../interfaces/Categoria';
-import { getCategoryByType } from '../../services/categoriaService';
+
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { toast } from 'react-toastify';
-import { createReceita, updateReceita } from '../../services/receitaService';
-import InputCurrency from '../InputCurrency';
-import { DatePicker } from '../DatePicker';
+
+import Form from './Form';
+
+import { Container } from './styles';
 
 interface ModalReceitaProps {
     isOpen: boolean
@@ -22,11 +21,6 @@ interface ModalReceitaProps {
 
 export function ModalReceita ({ isOpen, toggle, receita, addToList, updateList } : ModalReceitaProps) {
     const [current, setCurrent] = useState<ReceitaData>(initialValues);
-    const [categories, setCategories] = useState<CategoriaData[]>([])
-
-    useEffect(() => {
-        getCategories();
-    }, []);
 
     useEffect(() => {
         if (receita)
@@ -74,46 +68,13 @@ export function ModalReceita ({ isOpen, toggle, receita, addToList, updateList }
         }
     }
 
-    const getCategories = async () => {
-        await getCategoryByType("R")
-        .then(resp => setCategories(resp.data ?? []));
-    }
-
     return (
         <Container>
             <Modal isOpen={isOpen} centered toggle={toggle}>
                 <ModalHeader toggle={toggle}>Receita</ModalHeader>
                 
                 <ModalBody>
-                    <Input
-                        title='Descrição'
-                        name="description"
-                        value={current?.description}
-                        onChange={handleChange}
-                    />
-
-                    <InputCurrency
-                        title='Valor'
-                        name="price"
-                        value={current.price}
-                        onChange={handleChange}
-                    />
-
-                    <Select
-                        title='Categoria'
-                        name="categoryId"
-                        value={current?.categoryId}
-                        onChange={handleChange}
-                    >
-                        { categories.map(category => <option value={category.id}>{ category.description }</option>) }
-                    </Select>
-
-                    <DatePicker
-                        title='Vencimento'
-                        name="dueDate"
-                        value={current?.dueDate?.toString()}
-                        onChange={handleChange}
-                    />
+                    <Form current={current} onChange={handleChange}/>
                 </ModalBody>
 
                 <ModalFooter>

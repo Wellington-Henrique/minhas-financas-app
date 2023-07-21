@@ -10,12 +10,11 @@ interface InputProps {
     disabled?: boolean
 }
 
-export const Input = ({ className='', name, title, placeholder, value, onChange, disabled=false } : InputProps) => {
+const Input = ({ className='', name, title, placeholder, value, onChange, disabled=false } : InputProps) => {
   return (
-    <Container>
+    <Container className={className}>
         {title && <label htmlFor={name}>{title}</label>}
         <input
-            className={className}
             id={name}
             name={name}
             placeholder={placeholder ?? title}
@@ -26,3 +25,5 @@ export const Input = ({ className='', name, title, placeholder, value, onChange,
     </Container>
   )
 }
+
+export default Input;

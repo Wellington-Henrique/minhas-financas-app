@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react';
-
-import { Input } from '../Input';
 import { Container } from './styles';
 
 interface InputMoneyProps {
@@ -45,10 +43,9 @@ const InputCurrency = ({ className='', name, title, placeholder, value, onChange
   };
 
   return (
-    <Container>
+    <Container className={className}>
         {title && <label htmlFor={name}>{title}</label>}
         <input
-            className={className}
             id={name}
             name={name}
             placeholder={placeholder ?? title}

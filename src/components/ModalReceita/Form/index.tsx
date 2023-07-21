@@ -1,0 +1,66 @@
+import { useState, useEffect } from 'react';
+
+import { ReceitaData } from '../../../interfaces/Receita';
+import { CategoriaData } from '../../../interfaces/Categoria';
+
+import DatePicker from '../../DatePicker';
+import Input from '../../Input';
+import InputCurrency from '../../InputCurrency';
+import Select from '../../Select';
+import { getCategoryByType } from '../../../services/categoriaService';
+
+interface FormReceitaProps {
+    current: ReceitaData
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export default function({current, onChange} : FormReceitaProps) {
+    const [categories, setCategories] = useState<CategoriaData[]>([]);
+
+    useEffect(() => {
+        getCategories();
+    }, []);
+
+    const getCategories = async () => {
+        await getCategoryByType("R")
+        .then(resp => setCategories(resp.data ?? []));
+    }
+    
+    return(
+        <div className='row'>
+            <Input
+                className='col-lg-8 col-md-8 col-mb-12'
+                title='Descrição'
+                name="description"
+                value={current?.description}
+                onChange={onChange}
+            />
+
+            <DatePicker
+                className='col-lg-4 col-md-4 col-mb-6'
+                title='Vencimento'
+                name="dueDate"
+                value={current?.dueDate?.toString()}
+                onChange={onChange}
+            />
+            
+            <Select
+                className='col-lg-8 col-md-8 col-mb-12'
+                title='Categoria'
+                name="categoryId"
+                value={current?.categoryId}
+                onChange={onChange}
+            >
+                { categories.map(category => <option value={category.id}>{ category.description }</option>) }
+            </Select>
+
+            <InputCurrency
+                className='col-lg-4 col-md-4 col-mb-6'
+                title='Valor'
+                name="price"
+                value={current.price}
+                onChange={onChange}
+            />
+        </div>
+    )
+}

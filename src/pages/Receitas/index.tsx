@@ -8,7 +8,7 @@ import TableDescktop from './TableDescktop';
 import { toast } from 'react-toastify';
 import { ModalReceita } from '../../components/ModalReceita';
 import { Button } from 'reactstrap';
-import { DatePicker } from '../../components/DatePicker';
+import DatePicker from '../../components/DatePicker';
 import Spinner from '../../components/Spinner';
 import { initialValues } from './data';
 import Total from '../../components/Total';
@@ -154,13 +154,30 @@ export default function Receitas() {
         <HeaderPage title='Receitas'/>
         <div className='content'>
           <div className='search'>
-            <div>
-              <span>De</span><DatePicker name="startDate" value={filter.startDate} onChange={handleChange}/>
-              <span>Até</span><DatePicker name="endDate" value={filter.endDate} onChange={handleChange}/>
-              <Button color="success" onClick={handleSearch}>
-                Consultar
-              </Button>
+            <div className='row'>
+              <DatePicker
+                title="De"
+                name="startDate"
+                className="col-lg-5 col-md-5 col-6"
+                value={filter.startDate}
+                onChange={handleChange}
+              />
+
+              <DatePicker
+                title="Até"
+                name="endDate" 
+                className="col-lg-5 col-md-5 col-6"
+                value={filter.endDate} 
+                onChange={handleChange}
+              />
+              
+              <div className='d-flex align-items-end col-lg-2 col-md-2 col-12'>
+                <Button color="success" onClick={handleSearch}>
+                  Consultar
+                </Button>
+              </div>
             </div>
+
 
             <Button color="success" onClick={() => handleLoad(null)}>
               Nova receita

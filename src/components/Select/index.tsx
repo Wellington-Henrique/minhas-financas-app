@@ -11,12 +11,11 @@ interface InputData {
     children: any
 }
 
-export const Select = ({ className='', name, title, placeholder, value, onChange, disabled=false, children } : InputData) => {
+const Select = ({ className='', name, title, placeholder, value, onChange, disabled=false, children } : InputData) => {
   return (
-    <Container>
+    <Container className={className}>
         {title && <label htmlFor={name}>{title}</label>}
         <select
-            className={className}
             id={name}
             name={name}
             placeholder={placeholder ?? title}
@@ -30,3 +29,5 @@ export const Select = ({ className='', name, title, placeholder, value, onChange
     </Container>
   )
 }
+
+export default Select;

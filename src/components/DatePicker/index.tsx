@@ -10,7 +10,7 @@ interface DataPickerData {
     disabled?: boolean
 }
 
-export const DatePicker = ({ className='', name, title, value, onChange, disabled=false } : DataPickerData) => {
+const DatePicker = ({ className='', name, title, value, onChange, disabled=false } : DataPickerData) => {
   const [currentDate, setCurrentDate] = useState('');
   
   useEffect(() => {
@@ -19,12 +19,12 @@ export const DatePicker = ({ className='', name, title, value, onChange, disable
   }, [value]);
 
   return (
-    <Container>
+    <Container className={className}>
         {title && <label htmlFor={name}>{title}</label>}
         <input
-            className={`text-center ${className}`}
             id={name}
             name={name}
+            className='text-center'
             type={disabled ? "text" : "date"}
             value={ currentDate } 
             onChange={onChange}
@@ -33,3 +33,5 @@ export const DatePicker = ({ className='', name, title, value, onChange, disable
     </Container>
   )
 }
+
+export default DatePicker;

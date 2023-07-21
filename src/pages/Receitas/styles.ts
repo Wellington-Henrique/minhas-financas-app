@@ -27,7 +27,7 @@ export const Container = styled.div`
 
     .search {
         display: flex;
-        align-items: center;
+        align-items: end;
         justify-content: space-between;
 
         color: ${({theme}) => theme.colors.white};
@@ -38,19 +38,12 @@ export const Container = styled.div`
 
         flex: 0;
 
-        div {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-
-            input {
-                padding: 5px 10px;
-                color: ${({theme}) => theme.colors.white};
-                background-color: ${({theme}) => theme.colors.gray800};
-                border: solid 1px ${({theme}) => theme.colors.gray700};
-                border-radius: var(--bs-border-radius);
-                width: 130px;
-            }
+        input {
+            padding: 5px 10px;
+            color: ${({theme}) => theme.colors.white};
+            background-color: ${({theme}) => theme.colors.gray800};
+            border: solid 1px ${({theme}) => theme.colors.gray700};
+            border-radius: var(--bs-border-radius);
         }
     }
 
