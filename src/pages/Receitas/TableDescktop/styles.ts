@@ -29,7 +29,7 @@ export const Container = styled.table`
 
             svg {
                 cursor: pointer;
-                font-size: 1.4rem;    
+                font-size: 1.2rem;    
             }
 
             &:hover {

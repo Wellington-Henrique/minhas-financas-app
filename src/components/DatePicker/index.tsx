@@ -11,9 +11,10 @@ interface DataPickerData {
     value: string
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     disabled?: boolean
+    inLine?: boolean
 }
 
-const DatePicker = ({ className='', name, title, value, onChange, disabled=false } : DataPickerData) => {
+const DatePicker = ({ className='', name, title, value, onChange, disabled=false, inLine=false } : DataPickerData) => {
   const [currentDate, setCurrentDate] = useState('');
   
   useEffect(() => {
@@ -57,7 +58,7 @@ const DatePicker = ({ className='', name, title, value, onChange, disabled=false
   }
 
   return (
-    <Container className={className}>
+    <Container className={className} inLine={inLine}>
         {title && <label htmlFor={name}>{title}</label>}
         <input
             id={name}

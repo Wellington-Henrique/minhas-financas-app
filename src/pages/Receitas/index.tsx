@@ -12,10 +12,11 @@ import DatePicker from '../../components/DatePicker';
 import Spinner from '../../components/Spinner';
 import { initialValues } from './data';
 import Total from '../../components/Total';
+import SubmitButton from '../../components/SubmitButton';
 
 interface SearchData {
-  startDate: Date
-  endDate: Date
+  startDate: string
+  endDate: string
 }
 
 export default function Receitas() {
@@ -40,8 +41,8 @@ export default function Receitas() {
     });
   }
 
-  const handleSearch = () => {
-    getReceitas();
+  const handleSearch = async () => {
+    await getReceitas();
   }
 
   const handleLoad = (receita: ReceitaData | null) => {
@@ -92,9 +93,15 @@ export default function Receitas() {
     
     await getReceitasByDate(filter.startDate, filter.endDate)
     .then(resp => { 
-        setReceitas(resp.data ?? []);
+        if (resp.status === 201) {
+          setReceitas(resp.data);
+          getTotals(resp.data);
+        } else {
+          toast.error(resp);
+          setReceitas([]);
+        }
+
         setIsLoading(false);
-        getTotals(resp.data);
       }
     );
   }
@@ -156,28 +163,29 @@ export default function Receitas() {
         <HeaderPage title='Receitas'/>
         <div className='content'>
           <div className='search'>
-            <div className='row'>
+            <div>
               <DatePicker
                 title="De"
                 name="startDate"
-                className="col-lg-5 col-md-5 col-6"
+                inLine={true}
                 value={filter.startDate}
                 onChange={handleChange}
               />
 
               <DatePicker
                 title="Até"
-                name="endDate" 
-                className="col-lg-5 col-md-5 col-6"
+                name="endDate"
+                inLine={true}
                 value={filter.endDate} 
                 onChange={handleChange}
               />
               
-              <div className='d-flex align-items-end col-lg-2 col-md-2 col-12'>
-                <Button color="success" onClick={handleSearch}>
-                  Consultar
-                </Button>
-              </div>
+              <SubmitButton 
+                className='d-flex align-items-end' 
+                color="success" 
+                onSubmit={handleSearch}
+                title="Consultar"
+              />
             </div>
 
 
@@ -203,9 +211,9 @@ export default function Receitas() {
             </div>}
             {!!receitas.length && 
             <div className='table-totals'>
-              <Total title="Total" total={total}/>
-              <Total title="Pendente" total={pending}/>
-              <Total title="Recebido" total={payed}/>
+              <Total title="Total: " total={total}/>
+              <Total title="Pendente: " total={pending}/>
+              <Total title="Recebido: " total={payed}/>
             </div>}
         </div>
       </Container>

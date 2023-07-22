@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import Form from './Form';
 
 import { Container } from './styles';
+import SubmitButton from '../SubmitButton';
 
 interface ModalReceitaProps {
     isOpen: boolean
@@ -78,9 +79,10 @@ export function ModalReceita ({ isOpen, toggle, receita, addToList, updateList }
                 </ModalBody>
 
                 <ModalFooter>
-                    <Button color="primary" onClick={handleSubmit}>
-                        {current.id ? "Atualizar" : "Salvar"}
-                    </Button>
+                    <SubmitButton 
+                        onSubmit={handleSubmit}
+                        title={current.id ? "Atualizar" : "Salvar"}
+                    />
                     
                     <Button color="secondary" onClick={toggle}>
                         Cancelar

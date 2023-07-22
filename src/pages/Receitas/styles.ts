@@ -31,21 +31,20 @@ export const Container = styled.div`
         justify-content: space-between;
 
         color: ${({theme}) => theme.colors.white};
-        padding: 10px 0px;
+        padding: 10px;
 
         border-bottom: 1px solid ${({ theme }) => theme.colors.gray700};
         margin-bottom: 10px;
 
         flex: 0;
 
-        input {
-            padding: 5px 10px;
-            border: solid 1px ${({theme}) => theme.colors.gray700};
-            border-radius: var(--bs-border-radius);
+        > div {
+            display: flex;
+            gap: 0.4rem;
         }
 
-        button {
-            height: 35px;
+        label {
+            color: ${({ theme }) => theme.colors.white};
         }
     }
 
@@ -77,5 +76,18 @@ export const Container = styled.div`
         padding: 10px;
 
         flex: 0;
+    }
+
+    @media (max-width: 720px) {
+        .search {
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .table-totals {
+            flex-direction: column;
+            width: 100%;
+        }
     }
 `

@@ -29,7 +29,7 @@ export default function({current, onChange} : FormReceitaProps) {
     return(
         <div className='row'>
             <Input
-                className='col-lg-8 col-md-8 col-mb-12'
+                className='col-lg-8 col-md-8 col-mb-12 mb-3'
                 title='Descrição'
                 name="description"
                 value={current?.description}
@@ -37,7 +37,7 @@ export default function({current, onChange} : FormReceitaProps) {
             />
 
             <DatePicker
-                className='col-lg-4 col-md-4 col-mb-6'
+                className='col-lg-4 col-md-4 col-mb-6 mb-3'
                 title='Vencimento'
                 name="dueDate"
                 value={current?.dueDate}
@@ -45,7 +45,7 @@ export default function({current, onChange} : FormReceitaProps) {
             />
             
             <Select
-                className='col-lg-8 col-md-8 col-mb-12'
+                className='col-lg-8 col-md-8 col-mb-12 mb-3'
                 title='Categoria'
                 name="categoryId"
                 value={current?.categoryId}
@@ -55,7 +55,7 @@ export default function({current, onChange} : FormReceitaProps) {
             </Select>
 
             <InputCurrency
-                className='col-lg-4 col-md-4 col-mb-6'
+                className='col-lg-4 col-md-4 col-mb-6 mb-3'
                 title='Valor'
                 name="price"
                 value={current.price}

@@ -13,6 +13,7 @@ import { MdOutlineRemoveDone } from 'react-icons/md';
 
 import { Container } from "./styles";
 import { getCategoryByType } from '../../../services/categoriaService';
+import ToogleButton from '../../../components/ToggleSubmit';
 
 interface TableDesktopProps {
     receitas: ReceitaData[]
@@ -62,17 +63,17 @@ export default function ({ receitas, handleLoad, handleDelete, handleOpen, handl
                       <FiEdit onClick={() => handleLoad(receita)}/>
                     </div>
                     
-                    <div>
-                      <RiDeleteBin6Line onClick={() => handleDelete(receita.id)}/>
-                    </div>
+                    <ToogleButton onSubmit={async () => handleDelete(receita.id)}>
+                      <RiDeleteBin6Line/>
+                    </ToogleButton>
 
-                    <div>
-                      <MdOutlineDoneAll onClick={() => handleClose(receita.id)}/>
-                    </div>
+                    <ToogleButton onSubmit={async () => handleClose(receita.id)}>
+                      <MdOutlineDoneAll/>
+                    </ToogleButton>
                   </>  
-                  : <div>
-                      <MdOutlineRemoveDone onClick={() => handleOpen(receita.id)}/>
-                    </div>}
+                  : <ToogleButton onSubmit={ async () => handleOpen(receita.id)}>
+                      <MdOutlineRemoveDone/>
+                    </ToogleButton>}
                 </td>
               </tr>)}
           </tbody>

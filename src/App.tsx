@@ -5,8 +5,10 @@ import { BrowserRouter } from 'react-router-dom';
 import { Theme } from './styles/Theme';
 import { AppRoutes } from './routes';
 
+
 import { GlobalStyle } from './styles/global';
 import { Container } from './styles';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -14,8 +16,8 @@ function App() {
     <Container>
       <BrowserRouter>
         <Theme>
-          <AppRoutes />
           <GlobalStyle />
+          <AppRoutes />
         </Theme>
       </BrowserRouter>
     </Container>
