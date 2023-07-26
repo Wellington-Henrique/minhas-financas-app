@@ -4,23 +4,12 @@ interface ContainerProps {
     isMenuOpen: boolean
 }
 
-export const Container = styled.aside<ContainerProps>`
-  background-color: ${({ theme }) => theme.colors.gray900};
-  border-right: solid 1px ${({ theme }) => theme.colors.gray700};
-
-  ${({isMenuOpen}) =>  
-    isMenuOpen ? css`width: 250px;` : css`width: 75px;`
-  }
-
-  overflow: hidden;
-  padding: 5px;
-  
+export const Container = styled.div<ContainerProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  transition: width 0.3s;
-
+  border: solid 1px ${({ theme }) => theme.colors.gray700};
+  
   button {
     background: none;
     border: none;
@@ -50,14 +39,47 @@ export const Container = styled.aside<ContainerProps>`
   }
 
   nav {
-    margin-top: 0.5rem;
-    flex: 1;
     width: 100%;
-    height: 100%;
+    
+    padding: 5px;
 
+    flex: 1;
+
+    background-color: ${({ theme }) => theme.colors.gray900};
+  
+    ${({isMenuOpen}) =>  
+      isMenuOpen ? css`width: 250px;` : css`width: 75px;`
+    }
+  
+    transition: width 0.3s;
+
+    > div {
+      width: 100%;
+
+      display: flex;
+      align-items: center;
+
+      ${({isMenuOpen}) =>  
+          isMenuOpen ? css`justify-content: space-between;` : css`justify-content: center;`}
+
+      span {
+        width: 100%;
+
+        padding: 0 5px;
+        font-size: 1.2rem;
+        font-weight: 500;
+
+        color: ${({ theme }) => theme.colors.white};
+        transition: ease-in 10s;
+
+        ${({isMenuOpen}) =>  
+          isMenuOpen ? css`display: initial;` : css`display: none;`
+        }
+      }
+    }
+  
     ul {
       padding: 10px;
-      height: 100%;
 
       display: flex;
       flex-direction: column;
@@ -136,6 +158,51 @@ export const Container = styled.aside<ContainerProps>`
         span {
           color: ${({ theme }) => theme.colors.white};
         }
+      }
+    }
+  }
+
+  @media (max-width: 720px) {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    padding: 5px;
+
+    .bg-sidebar {
+      width: 100%;
+      height: 100%;
+
+      opacity: 0.6;
+      background-color: ${({ theme }) => theme.colors.gray700};
+
+      position: fixed;
+      top: 0;
+
+      transition: ease-in 0.3s;
+
+      ${({isMenuOpen}) =>  
+        isMenuOpen ? css`display: initial;` : css`display: none;`
+      }
+    }
+
+    button {
+      padding: 0;
+      justify-content: start;
+    }
+
+    nav {
+      width: 350px;
+      height: 100%;
+
+      position: fixed;
+      top: 0;
+
+      transition: ease-in 0.3s;
+
+      ${({isMenuOpen}) =>  
+        isMenuOpen ? css`left: 0;` : css`left: -350px;`
       }
     }
   }

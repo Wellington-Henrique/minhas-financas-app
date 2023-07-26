@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import { createReceita, updateReceita } from '../../services/receitaService';
-import { ReceitaData } from '../../interfaces/Receita';
+import { createDespesa, updateDespesa } from '../../services/despesaService';
+import { DespesaData } from '../../interfaces/Despesa';
 import { initialValues } from './data';
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
@@ -12,23 +12,23 @@ import SubmitButton from '../SubmitButton';
 
 import { Container } from './styles';
 
-interface ModalReceitaProps {
+interface ModalDespesaProps {
     isOpen: boolean
     toggle: () => void;
-    addToList: (receita: ReceitaData) => void;
-    updateList: (receita: ReceitaData) => void;
-    receita: ReceitaData
+    addToList: (despesa: DespesaData) => void;
+    updateList: (despesa: DespesaData) => void;
+    despesa: DespesaData
 }
 
-export function ModalReceita ({ isOpen, toggle, receita, addToList, updateList } : ModalReceitaProps) {
-    const [current, setCurrent] = useState<ReceitaData>(initialValues);
+export function ModalDespesa ({ isOpen, toggle, despesa, addToList, updateList } : ModalDespesaProps) {
+    const [current, setCurrent] = useState<DespesaData>(initialValues);
 
     useEffect(() => {
-        if (receita)
-            setCurrent(receita);
+        if (despesa)
+            setCurrent(despesa);
         else
             setCurrent(initialValues);
-    }, [receita]);
+    }, [despesa]);
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
@@ -42,10 +42,10 @@ export function ModalReceita ({ isOpen, toggle, receita, addToList, updateList }
         const data = {
             ...current, 
             categoryId: current.categoryId ? current.categoryId : null
-        } as ReceitaData;
+        } as DespesaData;
 
         if (data.id) {
-            await updateReceita(data)
+            await updateDespesa(data)
             .then(resp => {
                 if (resp?.status === 201) {
                     updateList(resp.data);
@@ -56,7 +56,7 @@ export function ModalReceita ({ isOpen, toggle, receita, addToList, updateList }
                 }
             });
         } else {
-            await createReceita(data)
+            await createDespesa(data)
             .then(resp => {
                 if (resp?.status === 201) {
                     addToList(resp.data);
@@ -72,7 +72,7 @@ export function ModalReceita ({ isOpen, toggle, receita, addToList, updateList }
     return (
         <Container>
             <Modal isOpen={isOpen} centered toggle={toggle}>
-                <ModalHeader toggle={toggle}>Receita</ModalHeader>
+                <ModalHeader toggle={toggle}>Despesa</ModalHeader>
                 
                 <ModalBody>
                     <Form current={current} onChange={handleChange}/>

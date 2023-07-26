@@ -1,24 +1,25 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    width: 100%;
-    height: 100%;
+    flex: 1;
 
     background: ${({theme}) => theme.colors.gray800};
 
     display: flex;
     flex-direction: column;
-    
+
     .content {
         display: flex;
         flex-direction: column;
+
+        flex: 1;
 
         margin: 5px;
         padding: 10px;
         background: ${({theme}) => theme.colors.gray900};
         
         border-radius: 5px;
-        flex: 1;
+        
 
         span {
             color: ${({theme}) => theme.colors.white};
@@ -28,7 +29,6 @@ export const Container = styled.div`
     .search {
         display: flex;
         align-items: end;
-        justify-content: space-between;
 
         color: ${({theme}) => theme.colors.white};
         padding: 10px;
@@ -37,6 +37,8 @@ export const Container = styled.div`
         margin-bottom: 10px;
 
         flex: 0;
+
+        gap: 0.5rem;
 
         > div {
             display: flex;
@@ -81,8 +83,15 @@ export const Container = styled.div`
     @media (max-width: 720px) {
         .search {
             align-items: center;
-            justify-content: center;
             flex-wrap: wrap;
+        }
+
+        .content {
+            height: 100%;
+        }
+
+        .table-container {
+            width: 100%;
         }
 
         .table-totals {

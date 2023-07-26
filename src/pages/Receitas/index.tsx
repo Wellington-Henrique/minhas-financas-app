@@ -4,7 +4,7 @@ import { HeaderPage } from '../../components/HeaderPage';
 import { ReceitaData } from '../../interfaces/Receita';
 import { Container } from './styles';
 import { closeReceita, deleteReceita, getReceitasByDate, openReceita } from '../../services/receitaService';
-import TableDescktop from './TableDescktop';
+import TableDescktop from './TableDesktop';
 import { toast } from 'react-toastify';
 import { ModalReceita } from '../../components/ModalReceita';
 import { Button } from 'reactstrap';
@@ -179,19 +179,19 @@ export default function Receitas() {
                 value={filter.endDate} 
                 onChange={handleChange}
               />
-              
-              <SubmitButton 
-                className='d-flex align-items-end' 
-                color="success" 
-                onSubmit={handleSearch}
-                title="Consultar"
-              />
             </div>
 
+            <SubmitButton
+              color="success" 
+              onSubmit={handleSearch}
+              title="Consultar"
+            />
 
-            <Button color="success" onClick={() => handleLoad(null)}>
-              Nova receita
-            </Button>
+            <div>
+              <Button color="success" onClick={() => handleLoad(null)}>
+                Nova receita
+              </Button>
+            </div>
           </div>
         
           {isLoading ? 

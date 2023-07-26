@@ -4,7 +4,7 @@ import api from "./api";
 export const createReceita = async (receita: ReceitaData) => {
     return await api.post(`Receitas`, receita)
     .then(resp => resp.data)
-    .catch(error => error.message.message);
+    .catch(error => error.message);
 }
 
 export const updateReceita = async (receita: ReceitaData) => {

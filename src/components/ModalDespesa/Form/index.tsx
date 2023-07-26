@@ -22,7 +22,7 @@ export default function({current, onChange} : FormReceitaProps) {
     }, []);
 
     const getCategories = async () => {
-        await getCategoryByType("R")
+        await getCategoryByType("D")
         .then(resp => setCategories(resp.data ?? []));
     }
     

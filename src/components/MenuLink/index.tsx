@@ -5,12 +5,13 @@ interface MenuLinkProps {
     path: string
     Icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>
     title: string
+    toogle: () => void
 }
 
-const MenuLink = ({path, Icon, title}: MenuLinkProps) => {
+const MenuLink = ({path, Icon, title, toogle}: MenuLinkProps) => {
   return (
     <li>
-        <NavLink to={path}>
+        <NavLink onClick={toogle} to={path}>
             <Icon/>
             <span>{title}</span>
         </NavLink>
