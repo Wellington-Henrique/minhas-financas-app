@@ -9,7 +9,6 @@ import Configuracoes from '../pages/Configuracoes';
 import { PrivateRoute } from './PrivateRoute';
 
 export function AppRoutes() {
-
   return (
     <Routes>
       <Route path='/' element={<PrivateRoute><Main/></PrivateRoute>}>

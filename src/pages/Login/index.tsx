@@ -26,7 +26,7 @@ const Login = () => {
         setCurrentUser(null);
     }, [])
 
-    const handleChange = (e: any) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         
         setAuthentication(prevState => {
@@ -36,7 +36,7 @@ const Login = () => {
 
     const onSubmit = async () => {
         await login(authentication)
-        .then(resp => {console.log(resp)
+        .then(resp => {
             if (resp.status === 200) {
                 setCurrentUser(resp.data);
                 navigate('/');

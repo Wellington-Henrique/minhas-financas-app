@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import useUserContext from '../../hooks/useUserContext';
 
 import { createDespesa, updateDespesa } from '../../services/despesaService';
 import { DespesaData } from '../../interfaces/Despesa';
@@ -21,6 +22,7 @@ interface ModalDespesaProps {
 }
 
 export function ModalDespesa ({ isOpen, toggle, despesa, addToList, updateList } : ModalDespesaProps) {
+    const { currentUser } = useUserContext();
     const [current, setCurrent] = useState<DespesaData>(initialValues);
 
     useEffect(() => {
@@ -30,7 +32,7 @@ export function ModalDespesa ({ isOpen, toggle, despesa, addToList, updateList }
             setCurrent(initialValues);
     }, [despesa]);
 
-    const handleChange = (e: any) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         
         setCurrent(prevState => {
@@ -45,7 +47,7 @@ export function ModalDespesa ({ isOpen, toggle, despesa, addToList, updateList }
         } as DespesaData;
 
         if (data.id) {
-            await updateDespesa(data)
+            await updateDespesa(data, `${currentUser?.token}`)
             .then(resp => {
                 if (resp?.status === 201) {
                     updateList(resp.data);
@@ -56,7 +58,7 @@ export function ModalDespesa ({ isOpen, toggle, despesa, addToList, updateList }
                 }
             });
         } else {
-            await createDespesa(data)
+            await createDespesa(data, `${currentUser?.token}`)
             .then(resp => {
                 if (resp?.status === 201) {
                     addToList(resp.data);
@@ -82,6 +84,7 @@ export function ModalDespesa ({ isOpen, toggle, despesa, addToList, updateList }
                     <SubmitButton 
                         onSubmit={handleSubmit}
                         title={current.id ? "Atualizar" : "Salvar"}
+                        loadTitle={current.id ? "Atualizando" : "Salvando"}
                     />
                     
                     <Button color="secondary" onClick={toggle}>

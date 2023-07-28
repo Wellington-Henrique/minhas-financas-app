@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import useUserContext from '../../hooks/useUserContext';
 
 import { HeaderPage } from '../../components/HeaderPage';
 import { DespesaData } from '../../interfaces/Despesa';
@@ -20,6 +21,7 @@ interface SearchData {
 }
 
 export default function Despesas() {
+  const { currentUser } = useUserContext();
   const [despesas, setDespesas] = useState<DespesaData[]>([]);
   const [currentDespesa, setCurrentDespesa] = useState<DespesaData | null>(null);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
@@ -51,8 +53,8 @@ export default function Despesas() {
   }
 
   const handleDelete = async (id: number) => {
-    await deleteDespesa(id).then(resp => {
-      if (resp.status === 201) {
+    await deleteDespesa(id, `${currentUser?.token}`).then(resp => {
+      if (resp.status === 200) {
         const newList = despesas.filter(despesa => despesa.id !== id);
         setDespesas(newList);
         getTotals(newList);
@@ -65,7 +67,7 @@ export default function Despesas() {
   }
 
   const handleClose = async (id: number) => {
-    await closeDespesa(id).then(resp => {
+    await closeDespesa(id, `${currentUser?.token}`).then(resp => {
       if (resp.status === 201) {
         updateList(resp.data);
         toast.success(resp.message);
@@ -77,7 +79,7 @@ export default function Despesas() {
   }
 
   const handleOpen = async (id: number) => {
-    await openDespesa(id).then(resp => {
+    await openDespesa(id, `${currentUser?.token}`).then(resp => {
       if (resp.status === 201) {
         updateList(resp.data);
         toast.success(resp.message);
@@ -91,9 +93,9 @@ export default function Despesas() {
   const getDespesas = async () => {
     setIsLoading(true);
     
-    await getDespesasByDate(filter.startDate, filter.endDate)
+    await getDespesasByDate(filter.startDate, filter.endDate, `${currentUser?.token}`)
     .then(resp => { 
-        if (resp.status === 201) {
+        if (resp.status === 200) {
           setDespesas(resp.data);
           getTotals(resp.data);
         } else {

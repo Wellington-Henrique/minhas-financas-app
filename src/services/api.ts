@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const api = axios.create({
   // baseURL: process.env.REACT_APP_API_BASE_URL
-  baseURL: "https://localhost:7121/"
+  baseURL: "https://localhost:7121/",
 })
 
 api.interceptors.response.use(
@@ -10,7 +10,7 @@ api.interceptors.response.use(
 		return response;
 	},
 	function (error) {
-    // console.error(error);
+    console.error(error);
         
     if (error?.code === 'ERR_NETWORK')
       throw new Error("Não foi possível se conectar ao servidor!");

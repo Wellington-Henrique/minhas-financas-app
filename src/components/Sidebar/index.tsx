@@ -12,10 +12,10 @@ import { ImExit } from 'react-icons/im';
 import { Container } from './styles';
 
 const Sidebar = () => {
-    const { setCurrentUser } = useUserContext();
+    const { currentUser, setCurrentUser } = useUserContext();
     const [ isMenuOpen, setIsMenuOpen ] = useState(false);
     const [ windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
-
+    
     useEffect(() => {
         function updateTableComponentBasedInWindowWidth () {
             const currentWidth = document.documentElement.clientWidth;
@@ -49,7 +49,7 @@ const Sidebar = () => {
             
             <nav>
                 <div>
-                    { isMenuOpen && <span>Olá, {"Wellington"}!</span> }
+                    { isMenuOpen && <span>Olá, {currentUser?.user.firstName}!</span> }
                     <div>
                         <button type='button' >
                             <CgMenu onClick={toogle}/>

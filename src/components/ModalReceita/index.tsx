@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import useUserContext from '../../hooks/useUserContext';
 
 import { createReceita, updateReceita } from '../../services/receitaService';
 import { ReceitaData } from '../../interfaces/Receita';
@@ -21,6 +22,7 @@ interface ModalReceitaProps {
 }
 
 export function ModalReceita ({ isOpen, toggle, receita, addToList, updateList } : ModalReceitaProps) {
+    const { currentUser } = useUserContext();
     const [current, setCurrent] = useState<ReceitaData>(initialValues);
 
     useEffect(() => {
@@ -30,7 +32,7 @@ export function ModalReceita ({ isOpen, toggle, receita, addToList, updateList }
             setCurrent(initialValues);
     }, [receita]);
 
-    const handleChange = (e: any) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         
         setCurrent(prevState => {
@@ -45,7 +47,7 @@ export function ModalReceita ({ isOpen, toggle, receita, addToList, updateList }
         } as ReceitaData;
 
         if (data.id) {
-            await updateReceita(data)
+            await updateReceita(data, `${currentUser?.token}`)
             .then(resp => {
                 if (resp?.status === 201) {
                     updateList(resp.data);
@@ -56,7 +58,7 @@ export function ModalReceita ({ isOpen, toggle, receita, addToList, updateList }
                 }
             });
         } else {
-            await createReceita(data)
+            await createReceita(data, `${currentUser?.token}`)
             .then(resp => {
                 if (resp?.status === 201) {
                     addToList(resp.data);
@@ -82,6 +84,7 @@ export function ModalReceita ({ isOpen, toggle, receita, addToList, updateList }
                     <SubmitButton 
                         onSubmit={handleSubmit}
                         title={current.id ? "Atualizar" : "Salvar"}
+                        loadTitle={current.id ? "Atualizando" : "Salvando"}
                     />
                     
                     <Button color="secondary" onClick={toggle}>

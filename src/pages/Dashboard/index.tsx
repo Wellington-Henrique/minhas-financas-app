@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import useUserContext from '../../hooks/useUserContext';
 import { getDespesasByDate } from '../../services/despesaService';
 import { getReceitasByDate } from '../../services/receitaService';
 
@@ -12,6 +13,7 @@ import { Container } from './styles';
 import { DespesaData } from '../../interfaces/Despesa';
 
 export default function Dashboard() {
+  const { currentUser } = useUserContext();
   const [ totalIncomes, setTotalIncomes ] = useState<number>(0);
   const [ totalIncomesOk, setTotalIncomesOk ] = useState<number>(0);
   const [ totalExpenses, setTotalExpenses ] = useState<number>(0);
@@ -23,12 +25,12 @@ export default function Dashboard() {
     const dt = new Date();
 
     Promise.all([
-      getReceitasByDate(new Date(dt.getFullYear(), dt.getMonth(), 1).toISOString(), dt.toISOString()),
-      getDespesasByDate(new Date(dt.getFullYear(), dt.getMonth(), 1).toISOString(), dt.toISOString()),
+      getReceitasByDate(new Date(dt.getFullYear(), dt.getMonth(), 1).toISOString(), dt.toISOString(), `${currentUser?.token}`),
+      getDespesasByDate(new Date(dt.getFullYear(), dt.getMonth(), 1).toISOString(), dt.toISOString(), `${currentUser?.token}`),
     ]).then(resp => {
       setIsLoading(false);
 
-      if (resp[0].status === 201) {
+      if (resp[0].status === 200) {
         const receitas = resp[0].data as ReceitaData[];
 
         const incomes = receitas.reduce(function(total, receita) {
@@ -43,7 +45,7 @@ export default function Dashboard() {
         setTotalIncomesOk(incomesOk);
       }
 
-      if (resp[1].status === 201) { 
+      if (resp[1].status === 200) { 
         const despesas = resp[1].data as DespesaData[];
 
         const expenses = despesas.reduce(function(total, despesa) {
@@ -69,16 +71,48 @@ export default function Dashboard() {
         <div className='content'>
           <div className='session'>
             <p>Lançamentos totais</p>
-            <DashboardCard title={"Receitas"} value={totalIncomes} isIncome={true}/>
-            <DashboardCard title={"Despesas"} value={totalExpenses}/>
-            <DashboardCard title={"Saldo"} value={totalIncomes-totalExpenses} isIncome={totalIncomes >= totalExpenses}/>
+            <DashboardCard
+              title={"Receitas"}
+              value={totalIncomes}
+              isIncome={true}
+              to='income'
+            />
+
+            <DashboardCard
+              title={"Despesas"}
+              value={totalExpenses}
+              to='expense'
+            />
+
+            <DashboardCard 
+              title={"Saldo"}
+              value={totalIncomes-totalExpenses}
+              isIncome={totalIncomes >= totalExpenses}
+              to={totalIncomes >= totalExpenses ? 'income' : 'expense'}
+            />
           </div>
 
           <div className='session'>
             <p>Totais líquidados</p>
-            <DashboardCard title={"Receitas"} value={totalIncomesOk} isIncome={true}/>
-            <DashboardCard title={"Despesas"} value={totalExpensesOk}/>
-            <DashboardCard title={"Saldo"} value={totalIncomesOk-totalExpensesOk} isIncome={totalIncomesOk >= totalExpensesOk}/>
+            <DashboardCard 
+              title={"Receitas"} 
+              value={totalIncomesOk} 
+              isIncome={true} 
+              to='income'
+            />
+
+            <DashboardCard 
+              title={"Despesas"} 
+              value={totalExpensesOk} 
+              to='expense'
+            />
+
+            <DashboardCard 
+              title={"Saldo"}
+              value={totalIncomesOk-totalExpensesOk} 
+              isIncome={totalIncomesOk >= totalExpensesOk}
+              to={totalIncomesOk >= totalExpensesOk ? 'income' : 'expense'}
+            />
           </div>
         </div>
       </>}

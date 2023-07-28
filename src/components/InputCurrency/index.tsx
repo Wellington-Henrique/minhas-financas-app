@@ -25,7 +25,13 @@ const InputCurrency = ({ className='', name, title, placeholder, value, onChange
   }, [value]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const valueRemoved = e.target.value.replace(',', '');
+    const { value } = e.target;
+    const regex = /^-?\d+$/;
+
+    if (value && !regex.test(value.charAt(value.length - 1)))
+      return;
+
+    const valueRemoved = value.replace(',', '');
 
     const sizeSlice = valueRemoved.length - DECIMAL_SIZE;
     const newValue = [valueRemoved.slice(0, sizeSlice), '.', valueRemoved.slice(sizeSlice)].join(

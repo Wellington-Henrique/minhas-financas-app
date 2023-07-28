@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import useUserContext from '../../hooks/useUserContext';
 
 import { HeaderPage } from '../../components/HeaderPage';
 import { ReceitaData } from '../../interfaces/Receita';
@@ -20,6 +21,7 @@ interface SearchData {
 }
 
 export default function Receitas() {
+  const { currentUser } = useUserContext();
   const [receitas, setReceitas] = useState<ReceitaData[]>([]);
   const [currentReceita, setCurrentReceita] = useState<ReceitaData | null>(null);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
@@ -51,8 +53,8 @@ export default function Receitas() {
   }
 
   const handleDelete = async (id: number) => {
-    await deleteReceita(id).then(resp => {
-      if (resp.status === 201) {
+    await deleteReceita(id, `${currentUser?.token}`).then(resp => {
+      if (resp.status === 200) {
         const newList = receitas.filter(receita => receita.id !== id);
         setReceitas(newList);
         getTotals(newList);
@@ -65,7 +67,7 @@ export default function Receitas() {
   }
 
   const handleClose = async (id: number) => {
-    await closeReceita(id).then(resp => {
+    await closeReceita(id, `${currentUser?.token}`).then(resp => {
       if (resp.status === 201) {
         updateList(resp.data);
         toast.success(resp.message);
@@ -77,7 +79,7 @@ export default function Receitas() {
   }
 
   const handleOpen = async (id: number) => {
-    await openReceita(id).then(resp => {
+    await openReceita(id, `${currentUser?.token}`).then(resp => {
       if (resp.status === 201) {
         updateList(resp.data);
         toast.success(resp.message);
@@ -91,9 +93,9 @@ export default function Receitas() {
   const getReceitas = async () => {
     setIsLoading(true);
     
-    await getReceitasByDate(filter.startDate, filter.endDate)
+    await getReceitasByDate(filter.startDate, filter.endDate, `${currentUser?.token}`)
     .then(resp => { 
-        if (resp.status === 201) {
+        if (resp.status === 200) {
           setReceitas(resp.data);
           getTotals(resp.data);
         } else {
