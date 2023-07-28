@@ -1,4 +1,5 @@
 import{ useState, useEffect } from 'react';
+import useUserContext from '../../hooks/useUserContext';
 
 import MenuLink from '../MenuLink';
 
@@ -11,10 +12,9 @@ import { ImExit } from 'react-icons/im';
 import { Container } from './styles';
 
 const Sidebar = () => {
+    const { setCurrentUser } = useUserContext();
     const [ isMenuOpen, setIsMenuOpen ] = useState(false);
     const [ windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
-
-    const toogle = () => setIsMenuOpen(!isMenuOpen);
 
     useEffect(() => {
         function updateTableComponentBasedInWindowWidth () {
@@ -30,6 +30,13 @@ const Sidebar = () => {
             window.removeEventListener('resize', updateTableComponentBasedInWindowWidth)
         }
     }, [])
+
+    const toogle = () => setIsMenuOpen(!isMenuOpen);
+
+    const handleSignout = () => {
+        isMenuOpen && toogle();
+        setCurrentUser(null);
+    }
 
     return (
         <Container isMenuOpen={isMenuOpen}>
@@ -55,7 +62,7 @@ const Sidebar = () => {
                     <MenuLink toogle={() => isMenuOpen && toogle()} path='/income' Icon={PiArrowFatLinesUpBold} title='Receitas'/>
                     <MenuLink toogle={() => isMenuOpen && toogle()} path='/expense' Icon={PiArrowFatLinesDownBold} title='Despesas'/>
                     {/* <MenuLink toogle={() => isMenuOpen && toogle()} path='/settings' Icon={AiOutlineSetting} title='Configurações'/> */}
-                    <MenuLink toogle={() => isMenuOpen && toogle()} path='/login' Icon={ImExit} title='Sair'/>
+                    <MenuLink toogle={() => handleSignout()} path='/login' Icon={ImExit} title='Sair'/>
                 </ul>
             </nav>
         </Container>

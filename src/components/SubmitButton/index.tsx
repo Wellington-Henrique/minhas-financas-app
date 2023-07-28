@@ -8,12 +8,13 @@ import { Container } from "./styles";
 
 interface SubmitButtonProps {
     title?: string
+    loadTitle?: string
     color?: string
     className?: string
     onSubmit: () => Promise<void>;
 }
 
-const SubmitButton = ({ title="Salvar", onSubmit, color="success", className="" } : SubmitButtonProps) => {
+const SubmitButton = ({ title="Salvar", loadTitle='Salvando', onSubmit, color="success", className="" } : SubmitButtonProps) => {
     const [isLoading, setIsLoading ] = useState<boolean>(false);
 
     const handleClick = async () => {
@@ -30,7 +31,10 @@ const SubmitButton = ({ title="Salvar", onSubmit, color="success", className="" 
                 color={color}
                 className="spinner" 
                 onClick={handleClick}
-                ><span>{title}</span>{ isLoading && <FiLoader/>}
+            >
+                {isLoading ? 
+                <><span>{loadTitle}</span><FiLoader/></>
+                : <span>{title}</span>}
             </Button>
         </Container>
     );

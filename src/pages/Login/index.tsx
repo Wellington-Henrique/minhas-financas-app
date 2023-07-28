@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { login } from "../../services/autenticacaoService";
@@ -13,6 +13,7 @@ import Input from "../../components/Input";
 import { FcMoneyTransfer } from 'react-icons/fc';
 
 import { Container } from "./styles";
+import SubmitButton from "../../components/SubmitButton";
 
 
 const Login = () => {
@@ -20,6 +21,10 @@ const Login = () => {
     const { setCurrentUser } = useUserContext();
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        setCurrentUser(null);
+    }, [])
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
@@ -29,9 +34,7 @@ const Login = () => {
         });
     }
 
-    const onSubmit = async (e: any) => {
-        e.preventDefault();
-
+    const onSubmit = async () => {
         await login(authentication)
         .then(resp => {console.log(resp)
             if (resp.status === 200) {
@@ -88,7 +91,7 @@ const Login = () => {
                         className="mb-4"
                     >Esqueci a Senha</Link>
                     
-                    <button type="submit" onClick={(e) => onSubmit(e)}>Acessar</button>
+                    <SubmitButton title='Acessar' loadTitle='Acessando' onSubmit={onSubmit}/>
                 </form>
             </div>
         </Container>

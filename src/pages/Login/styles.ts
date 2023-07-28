@@ -93,7 +93,7 @@ export const Container = styled.div`
             justify-content: center;
     
             width: 20%;
-            height: 300px;
+            height: 450px;
     
             padding: 10px 20px;
             margin: 10px;
@@ -102,10 +102,11 @@ export const Container = styled.div`
             border: solid 1px ${({theme}) => theme.colors.gray700};
             border-radius: 15px;
     
-            gap: 0.5rem;
+            gap: 1.2rem;
     
             label, a {
                 color: ${({theme}) => theme.colors.white};
+                margin-bottom: 10px;
             }
     
             input {
@@ -128,6 +129,23 @@ export const Container = styled.div`
                     color: ${({theme}) => theme.colors.white};
                     background-color: ${({theme}) => theme.colors.gray700};
                 }
+            }
+        }
+    }
+
+    @media (max-width: 720px) {
+        gap: 0;
+
+        > div {
+            padding: 5px;
+
+            > div {
+                display: none;
+            }
+
+            form {
+                width: 100%;
+                height: 100%;
             }
         }
     }

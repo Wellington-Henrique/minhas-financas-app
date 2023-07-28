@@ -13,6 +13,13 @@ export const UserProvider = ({ children } : React.PropsWithChildren<{}>) => {
     const [ currentUser, setCurrentUser ] = useState<UserData | null>(null);
 
     useEffect(() => {
+        const userCache = localStorage.getItem("@my-finances/user");
+
+        if (userCache)
+            setCurrentUser(JSON.parse(userCache));
+    }, []);
+
+    useEffect(() => {
         if (currentUser)
             localStorage.setItem("@my-finances/user", JSON.stringify(currentUser));
         else
