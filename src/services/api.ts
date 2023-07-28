@@ -14,9 +14,6 @@ api.interceptors.response.use(
         
     if (error?.code === 'ERR_NETWORK')
       throw new Error("Não foi possível se conectar ao servidor!");
-
-    if (error.response?.status === 401) 
-      throw new Error("Token expirou!");
         
     if (error.response?.status === 405)
       throw new Error("Médodo não implementado.");

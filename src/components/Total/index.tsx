@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { currencyFormatter } from '../../utils/formatter';
 
 import { Container } from './styles';

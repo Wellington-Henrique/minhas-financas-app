@@ -6,7 +6,6 @@ import { CgMenu } from 'react-icons/cg';
 import { LuLayoutDashboard } from 'react-icons/lu';
 import { PiArrowFatLinesUpBold } from 'react-icons/pi';
 import { PiArrowFatLinesDownBold } from 'react-icons/pi';
-import { AiOutlineSetting } from 'react-icons/ai';
 import { ImExit } from 'react-icons/im';
 
 import { Container } from './styles';

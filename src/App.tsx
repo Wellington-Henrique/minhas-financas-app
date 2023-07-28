@@ -2,14 +2,16 @@
 
 import { BrowserRouter } from 'react-router-dom';
 
-import { Theme } from './styles/Theme';
 import { AppRoutes } from './routes';
+import { UserProvider } from "./contexts/userContext";
 
+import { ToastContainer } from 'react-toastify';
 
+import { Theme } from './styles/Theme';
 import { GlobalStyle } from './styles/global';
 import { Container } from './styles';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   return (
@@ -17,9 +19,12 @@ function App() {
       <BrowserRouter>
         <Theme>
           <GlobalStyle />
-          <AppRoutes />
+          <UserProvider>
+            <AppRoutes />
+          </UserProvider>
         </Theme>
       </BrowserRouter>
+      <ToastContainer autoClose={2000}/>
     </Container>
   )
 }
