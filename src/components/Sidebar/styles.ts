@@ -88,17 +88,19 @@ export const Container = styled.div<ContainerProps>`
 
     li {
       border-radius: 4px;
-      transition: ease-in 0.3s;
+      transition: ease-in 0.2s;
 
       border-top: 1px solid ${({ theme }) => theme.colors.gray700};
       border-bottom: 1px solid ${({ theme }) => theme.colors.gray700};
 
-      a {
+      a, > div {
         width: 100%;
         position: relative;
         
         display: flex;
         align-items: center;
+
+        cursor: pointer;
 
         gap: 0.5rem;
 

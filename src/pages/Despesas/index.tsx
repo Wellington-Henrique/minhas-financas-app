@@ -14,6 +14,7 @@ import Spinner from '../../components/Spinner';
 import { initialValues } from './data';
 import Total from '../../components/Total';
 import SubmitButton from '../../components/SubmitButton';
+import DialogConfirm from '../../components/DialogConfirm';
 
 interface SearchData {
   startDate: string
@@ -31,11 +32,19 @@ export default function Despesas() {
   const [payed, setPayed] = useState<number>(0);
   const [pending, setPending] = useState<number>(0);
 
+  const [ confirmDeleteIsOpen, setConfirmDeleteIsOpen] = useState<boolean>(false);
+  const [ confirmCloseIsOpen, setConfirmCloseIsOpen] = useState<boolean>(false);
+  const [ confirmReOpenIsOpen, setConfirmReOpenIsOpen] = useState<boolean>(false);
+
   useEffect(() => {
     getDespesas();
   }, []);
 
-  const handleChange = (e: any) => {
+  const toggleConfirmDelete = () => setConfirmDeleteIsOpen(!confirmDeleteIsOpen);
+  const toggleConfirmClose = () => setConfirmCloseIsOpen(!confirmCloseIsOpen);
+  const toggleConfirmReOpen = () => setConfirmReOpenIsOpen(!confirmReOpenIsOpen);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setFilter(prevState => {
@@ -47,12 +56,17 @@ export default function Despesas() {
     await getDespesas();
   }
 
-  const handleLoad = (despesa: DespesaData | null) => {
-    setCurrentDespesa(despesa);
+  const handleLoad = (data: DespesaData | null) => {
+    setCurrentDespesa(data);
     setModalIsOpen(true);
   }
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (data: DespesaData) => {
+    setCurrentDespesa(data);
+    toggleConfirmDelete();
+  }
+
+  const deleteExpense = async (id: number) => {
     await deleteDespesa(id, `${currentUser?.token}`).then(resp => {
       if (resp.status === 200) {
         const newList = despesas.filter(despesa => despesa.id !== id);
@@ -66,7 +80,12 @@ export default function Despesas() {
     })
   }
 
-  const handleClose = async (id: number) => {
+  const handleClose = async (data: DespesaData) => {
+    setCurrentDespesa(data);
+    toggleConfirmClose();
+  }
+
+  const closeExpense = async (id: number) => {
     await closeDespesa(id, `${currentUser?.token}`).then(resp => {
       if (resp.status === 201) {
         updateList(resp.data);
@@ -78,9 +97,15 @@ export default function Despesas() {
     })
   }
 
-  const handleOpen = async (id: number) => {
+  const handleOpen = async (data: DespesaData) => {
+    setCurrentDespesa(data);
+    toggleConfirmReOpen();
+  }
+
+  const reOpenExpense = async (id: number) => {
     await openDespesa(id, `${currentUser?.token}`).then(resp => {
       if (resp.status === 201) {
+        setCurrentDespesa(null)
         updateList(resp.data);
         toast.success(resp.message);
       }
@@ -219,6 +244,34 @@ export default function Despesas() {
             </div>}
         </div>
       </Container>
+
+      {currentDespesa &&
+      <>
+        <DialogConfirm
+          title='Deletar despesa'
+          body='Deseja realmente deletar a despesa?'
+          confirmText='Deletar'
+          isOpen={confirmDeleteIsOpen}
+          submit={async () => deleteExpense(currentDespesa.id)}
+          toggle={toggleConfirmDelete} 
+        />
+
+        <DialogConfirm
+          title='Líquidar despesa'
+          body='Deseja realmente líquidar a despesa?'
+          isOpen={confirmCloseIsOpen}
+          submit={async () => closeExpense(currentDespesa.id)}
+          toggle={toggleConfirmClose} 
+        />
+
+        <DialogConfirm
+          title='Reabrir despesa'
+          body='Deseja realmente reabrir a despesa?'
+          isOpen={confirmReOpenIsOpen}
+          submit={async () => reOpenExpense(currentDespesa.id)}
+          toggle={toggleConfirmReOpen} 
+        />
+      </>}
 
       <ModalDespesa 
         isOpen={modalIsOpen}

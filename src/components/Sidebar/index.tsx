@@ -10,11 +10,16 @@ import { PiArrowFatLinesDownBold } from 'react-icons/pi';
 import { ImExit } from 'react-icons/im';
 
 import { Container } from './styles';
+import DialogConfirm from '../DialogConfirm';
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
     const { currentUser, setCurrentUser } = useUserContext();
     const [ isMenuOpen, setIsMenuOpen ] = useState(false);
+    const [ confirmSignoutIsOpen, setConfirmSignoutIsOpen ] = useState(false);
     const [ windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth);
+
+    const navigate = useNavigate();
     
     useEffect(() => {
         function updateTableComponentBasedInWindowWidth () {
@@ -32,10 +37,15 @@ const Sidebar = () => {
     }, [])
 
     const toogle = () => setIsMenuOpen(!isMenuOpen);
+    const toggleConfirmSignout = () => setConfirmSignoutIsOpen(!confirmSignoutIsOpen);
 
-    const handleSignout = () => {
-        isMenuOpen && toogle();
+    const handleSignout = async () => {
+        toggleConfirmSignout();
+    }
+
+    const signout = async () => {
         setCurrentUser(null);
+        navigate('/login');
     }
 
     return (
@@ -61,10 +71,18 @@ const Sidebar = () => {
                     <MenuLink toogle={() => isMenuOpen && toogle()} path='/dashboard' Icon={LuLayoutDashboard} title='Dashboard'/>
                     <MenuLink toogle={() => isMenuOpen && toogle()} path='/income' Icon={PiArrowFatLinesUpBold} title='Receitas'/>
                     <MenuLink toogle={() => isMenuOpen && toogle()} path='/expense' Icon={PiArrowFatLinesDownBold} title='Despesas'/>
+                    <MenuLink toogle={handleSignout} Icon={ImExit} title='Sair'/>
                     {/* <MenuLink toogle={() => isMenuOpen && toogle()} path='/settings' Icon={AiOutlineSetting} title='Configurações'/> */}
-                    <MenuLink toogle={() => handleSignout()} path='/login' Icon={ImExit} title='Sair'/>
                 </ul>
             </nav>
+
+            <DialogConfirm
+                title='Sair'
+                body='Deseja realmente sair?'
+                isOpen={confirmSignoutIsOpen}
+                submit={signout}
+                toggle={toggleConfirmSignout} 
+            />
         </Container>
     );
 }

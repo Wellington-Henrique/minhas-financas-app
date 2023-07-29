@@ -25,7 +25,7 @@ export const Container = styled.table`
             border: none;
             padding: 6px;
             border-radius: 50%;
-            transition: ease-in 0.1s;
+            transition: ease-in 0.2s;
 
             svg {
                 cursor: pointer;

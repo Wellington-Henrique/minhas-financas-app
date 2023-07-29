@@ -18,9 +18,9 @@ import ToogleButton from '../../../components/ToggleSubmit';
 interface TableDesktopProps {
     despesas: DespesaData[]
     handleLoad: (despesa: DespesaData) => void;
-    handleDelete: (id: number) => void;
-    handleClose: (id: number) => void;
-    handleOpen: (id: number) => void;
+    handleDelete: (despesa: DespesaData) => void;
+    handleClose: (despesa: DespesaData) => void;
+    handleOpen: (despesa: DespesaData) => void;
 }
 
 export default function ({ despesas, handleLoad, handleDelete, handleOpen, handleClose }: TableDesktopProps) {
@@ -63,15 +63,15 @@ export default function ({ despesas, handleLoad, handleDelete, handleOpen, handl
                       <FiEdit onClick={() => handleLoad(despesa)}/>
                     </div>
                     
-                    <ToogleButton onSubmit={async () => handleDelete(despesa.id)}>
+                    <ToogleButton onSubmit={async () => handleDelete(despesa)}>
                       <RiDeleteBin6Line/>
                     </ToogleButton>
 
-                    <ToogleButton onSubmit={async () => handleClose(despesa.id)}>
+                    <ToogleButton onSubmit={async () => handleClose(despesa)}>
                       <MdOutlineDoneAll/>
                     </ToogleButton>
                   </>  
-                  : <ToogleButton onSubmit={ async () => handleOpen(despesa.id)}>
+                  : <ToogleButton onSubmit={ async () => handleOpen(despesa)}>
                       <MdOutlineRemoveDone/>
                     </ToogleButton>}
                 </td>

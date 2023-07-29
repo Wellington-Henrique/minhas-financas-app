@@ -5,13 +5,12 @@ import { FiLoader } from "react-icons/fi";
 import { Container } from "./styles";
 
 interface SubmitButtonProps {
-    placeholder?: string
     className?: string
     children: any
     onSubmit: () => Promise<void>;
 }
 
-const ToogleButton = ({ placeholder="", onSubmit, className="", children } : SubmitButtonProps) => {
+const ToogleButton = ({ onSubmit, className="", children } : SubmitButtonProps) => {
     const [isLoading, setIsLoading ] = useState<boolean>(false);
 
     const handleClick = async () => {
