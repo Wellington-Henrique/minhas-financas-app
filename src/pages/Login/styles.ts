@@ -103,23 +103,67 @@ export const Container = styled.div`
             border-radius: 15px;
     
             gap: 1.2rem;
-    
-            label, a {
-                color: ${({theme}) => theme.colors.white};
-                margin-bottom: 10px;
+
+            .error {
+                color: ${({theme}) => theme.colors.red};
             }
     
-            input {
-                border-radius: 4px;
-                background-color: ${({theme}) => theme.colors.gray700};
+            label, a, h1 {
+                color: ${({theme}) => theme.colors.white};
+            }
+
+            > div {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+
+                .field {
+                    display: flex;
+                    flex-direction: column;
+
+                    label {
+                        margin-bottom: 0.2rem;
+                    }
+
+                    input {
+                        padding: 5px 10px;
+                        border-radius: 4px;
+                        height: 35px;
+                        border: none;
+                        background-color: ${({theme}) => theme.colors.gray700};
+                        color: ${({theme}) => theme.colors.white};
+                    }
+
+                    p {
+                        margin-top: 0.2rem;
+                    }
+                }
+    
+                .links {
+                    display: flex;
+                    flex-direction: column;
+    
+                    gap: 0.2rem;
+
+                    a {
+                        color: ${({theme}) => theme.colors.gray600};
+                        transition: ease-in 0.2s;
+
+                        &:hover {
+                            color: ${({theme}) => theme.colors.white};
+                        }
+                    }
+
+                }
             }
     
             button {
                 width: 100%;
                 color: ${({theme}) => theme.colors.gray500};
                 background-color: ${({theme}) => theme.colors.gray900};
+                
                 border-radius: 4px;
-                border: none;
+                border: solid 1px ${({theme}) => theme.colors.gray700};
     
                 padding: 10px 20px;
     

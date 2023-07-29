@@ -1,24 +1,33 @@
 import { useState, useEffect } from "react";
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import useUserContext from "../../hooks/useUserContext";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { login } from "../../services/autenticacaoService";
 
+import { FieldValues, schema } from './validationSchema'
+
 import { AutenticacaoData } from "../../interfaces/Autenticacao";
 
-import { initialValues } from "./data";
-import useUserContext from "../../hooks/useUserContext";
-
-import Input from "../../components/Input";
+import SmallSpinner from "../../components/SmallSpinner";
 
 import { FcMoneyTransfer } from 'react-icons/fc';
 
 import { Container } from "./styles";
-import SubmitButton from "../../components/SubmitButton";
 
 
 const Login = () => {
-    const [authentication, setAuthentication] = useState<AutenticacaoData>(initialValues);
     const { setCurrentUser } = useUserContext();
+    const [ isLoading, setIsLoading ] = useState<boolean>(false);
+
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<FieldValues>({
+        resolver: yupResolver(schema),
+    })
 
     const navigate = useNavigate();
 
@@ -26,17 +35,11 @@ const Login = () => {
         setCurrentUser(null);
     }, [])
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        
-        setAuthentication(prevState => {
-            return {...prevState, [name]: value};
-        });
-    }
+    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+        setIsLoading(true);
 
-    const onSubmit = async () => {
-        await login(authentication)
-        .then(resp => {
+        await login(data as AutenticacaoData)
+        .then(resp => {console.log(resp)
             if (resp.status === 200) {
                 setCurrentUser(resp.data);
                 navigate('/');
@@ -44,6 +47,8 @@ const Login = () => {
                 toast.error(resp);
             }
         })
+
+        setIsLoading(false);
     }
 
     return (
@@ -69,29 +74,45 @@ const Login = () => {
                     </div>
                 </div>
 
-                <form>
-                    <Input
-                        title="Usuário"
-                        name="login"
-                        type="email"
-                        value={authentication.login}
-                        onChange={handleChange}
-                    />
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <h1>Login</h1>
+                    <div>
+                        <div className="field">
+                            <label htmlFor='login'>Usuário</label>
+                            <Controller
+                                name='login'
+                                control={control}
+                                render={({ field }) => (
+                                    <input type='text' id='login' autoComplete='email' placeholder="Usuário" {...field} />
+                                )}
+                            />
+                            {errors.login && <p className='error'>{errors.login.message}</p>}
+                        </div>
 
-                    <Input
-                        title="Senha"
-                        name="password"
-                        type="password"
-                        value={authentication.password}
-                        onChange={handleChange}
-                    />
+                        <div className="field">
+                            <label htmlFor='password'>Senha</label>
+                            <Controller
+                                name='password'
+                                control={control}
+                                render={({ field }) => (
+                                    <input type='password' id='password' placeholder="Senha" {...field} />
+                                )}
+                            />
+                            {errors.password && <p className='error'>{errors.password.message}</p>}
+                        </div>
 
-                    <Link 
-                        to="/recovery" 
-                        className="mb-4"
-                    >Esqueci a Senha</Link>
+                        {/* <div className="links">
+                            <Link 
+                                to="/recovery"
+                            >Esqueci a Senha</Link>
+
+                            <Link 
+                                to="/create-account"
+                            >Criar uma conta</Link>
+                        </div> */}
+                    </div>
                     
-                    <SubmitButton title='Acessar' loadTitle='Acessando' onSubmit={onSubmit}/>
+                    <button type="submit">{isLoading ? <SmallSpinner/> : "Acessar"}</button>
                 </form>
             </div>
         </Container>

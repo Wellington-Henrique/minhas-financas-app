@@ -5,6 +5,8 @@ interface HeaderPageProps {
 }
 
 export const HeaderPage = ({title} : HeaderPageProps) => {
+  document.title = `${title} | Minhas finanças`;
+
   return (
     <Container>
       <span>{title}</span>

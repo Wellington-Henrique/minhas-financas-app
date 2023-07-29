@@ -12,6 +12,7 @@ export function AppRoutes() {
   return (
     <Routes>
       <Route path='/' element={<PrivateRoute><Main/></PrivateRoute>}>
+        <Route path='/' element={<Dashboard/>}/>
         <Route path='/dashboard' element={<Dashboard/>}/>
         <Route path='/income' element={<Receitas/>}/>
         <Route path='/expense' element={<Despesas/>}/>

@@ -15,18 +15,5 @@ export const Container = styled.div<ContainerProps>`
         ${({isLoading}) =>  
             isLoading ? css`pointer-events: none;` : css`pointer-events: initial;`
         }
-
-        svg {
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
     }
 `

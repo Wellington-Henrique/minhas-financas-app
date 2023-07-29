@@ -1,8 +1,7 @@
 import { useState } from "react";
 
 import { Button } from "reactstrap";
-
-import  { FiLoader } from 'react-icons/fi';
+import SmallSpinner from "../SmallSpinner";
 
 import { Container } from "./styles";
 
@@ -33,7 +32,7 @@ const SubmitButton = ({ title="Salvar", loadTitle='Salvando', onSubmit, color="s
                 onClick={handleClick}
             >
                 {isLoading ? 
-                <><span>{loadTitle}</span><FiLoader/></>
+                <><span>{loadTitle}</span><SmallSpinner/></>
                 : <span>{title}</span>}
             </Button>
         </Container>
