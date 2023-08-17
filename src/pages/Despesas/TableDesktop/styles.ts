@@ -4,18 +4,30 @@ export const Container = styled.table`
     color: ${({ theme }) => theme.colors.white};
     border-radius: 0.4rem;
 
-    th {
-        background-color: ${({ theme }) => theme.colors.gray800}
+    thead {
+        tr {
+            th {
+                position: sticky;
+                top: 0;
+                border: none;
+                background-color: ${({ theme }) => theme.colors.gray800}
+            }
+        }
     }
 
     th, td {
-        padding: 5px 10px;
+        padding: 5px;
     }
 
-    th, tr {
-        border: solid 1px ${({ theme }) => theme.colors.gray700};
+    tbody {
+        tr {
+            td {
+                padding: 5px 10px;
+                border: solid 1px ${({ theme }) => theme.colors.gray700};
+            }
+        }
     }
-    
+
     .action {
         display: flex;
         align-items: center;

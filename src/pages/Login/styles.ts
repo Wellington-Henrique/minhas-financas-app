@@ -181,6 +181,9 @@ export const Container = styled.div`
         gap: 0;
 
         > div {
+            display: flex;
+            flex: 1;
+
             padding: 5px;
 
             > div {

@@ -7,11 +7,13 @@ export const Container = styled.div`
 
     display: flex;
     flex-direction: column;
-
+    overflow: hidden;
+    
     .content {
         display: flex;
         flex-direction: column;
 
+        overflow: hidden;
         flex: 1;
 
         margin: 5px;
@@ -20,9 +22,8 @@ export const Container = styled.div`
         
         border-radius: 5px;
         
-
-        span {
-            color: ${({theme}) => theme.colors.white};
+        span, label, h5 {
+            color: ${({ theme }) => theme.colors.white};
         }
     }
 
@@ -44,36 +45,30 @@ export const Container = styled.div`
             display: flex;
             gap: 0.4rem;
         }
-
-        label {
-            color: ${({ theme }) => theme.colors.white};
-        }
     }
 
     .table-container {
-        margin: 0 auto;
-        width: 70%;
-
         overflow-y: auto;
 
         flex: 1;
 
+        border: 1px solid ${({theme}) => theme.colors.gray700};
+        border-radius: 4px;
+        margin-bottom: 10px;
+
         > h5 {
             font-size: 0.8rem;
             margin-bottom: 10px;
-            color: ${({theme}) => theme.colors.white}
         }
     }
 
-    .table-totals {
-        margin: 0 auto;
-        width: 70%;
-        
+    .table-totals {        
         display: flex;
         justify-content: space-between;
         gap: 0.8rem;
         
         background-color: ${({theme}) => theme.colors.gray800};
+        border: 1px solid ${({theme}) => theme.colors.gray700};
         border-radius: 4px;
         padding: 10px;
 
@@ -81,17 +76,16 @@ export const Container = styled.div`
     }
 
     @media (max-width: 720px) {
+        display: flex;
+
         .search {
             align-items: center;
             flex-wrap: wrap;
         }
 
-        .content {
-            height: 100%;
-        }
-
         .table-container {
-            width: 100%;
+            overflow-y: auto;
+            flex: 1;
         }
 
         .table-totals {

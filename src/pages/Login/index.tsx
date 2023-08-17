@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useUserContext from "../../hooks/useUserContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { login } from "../../services/autenticacaoService";
 
@@ -53,11 +53,11 @@ const Login = () => {
 
     return (
         <Container>
-            <nav>
+            {/* <nav>
                 <ul>
                     <li>Sobre</li>
                 </ul>
-            </nav>
+            </nav> */}
 
             <div>
                 <div>

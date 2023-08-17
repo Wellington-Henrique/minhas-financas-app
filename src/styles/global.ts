@@ -23,6 +23,21 @@ export const GlobalStyle = createGlobalStyle`
     font: 400 1rem 'Roboto', Helvetica, Arial, sans-serif;
   }
 
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    border: 1px solid ${({ theme }) => theme.colors.gray700};
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.colors.gray800};
+    border-radius: 4px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background-color: ${({ theme }) => theme.colors.gray900}; 
+  }
+
   a {
     color: inherit;
     text-decoration: none;

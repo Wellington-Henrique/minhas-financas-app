@@ -223,10 +223,13 @@ export default function Despesas() {
         
           {isLoading ? 
             <Spinner/> 
-          : <div className='table-container'>
-              { despesas.length ? 
-              <>
+          : 
+            despesas.length ? 
+            <>
+              <div>
                 <h5>Suas despesas encontradas durante o período informado.</h5>
+              </div>
+              <div className='table-container'>
                 <TableDesktop 
                   despesas={despesas} 
                   handleLoad={handleLoad} 
@@ -234,8 +237,9 @@ export default function Despesas() {
                   handleClose={handleClose}
                   handleOpen={handleOpen}
                 />
-              </>: <h5>Não foram encontradas despesas...</h5>}
-            </div>}
+              </div>
+            </>: <h5>Não foram encontradas despesas...</h5>}
+            
             {!!despesas.length && 
             <div className='table-totals'>
               <Total title="Total: " total={total}/>

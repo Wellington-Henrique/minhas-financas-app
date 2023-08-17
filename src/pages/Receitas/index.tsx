@@ -222,10 +222,14 @@ export default function Receitas() {
         
           {isLoading ? 
             <Spinner/> 
-          : <div className='table-container'>
-              { receitas.length ? 
-              <>
+          : 
+            receitas.length ? 
+            <>
+              <div>
                 <h5>Suas receitas encontradas durante o período informado.</h5>
+              </div>
+              
+              <div className='table-container'>
                 <TableDescktop 
                   receitas={receitas} 
                   handleLoad={handleLoad} 
@@ -233,8 +237,9 @@ export default function Receitas() {
                   handleClose={handleClose}
                   handleOpen={handleOpen}
                 />
-              </>: <h5>Não foram encontradas receitas...</h5>}
-            </div>}
+              </div>
+            </>: <h5>Não foram encontradas receitas...</h5>}
+            
             {!!receitas.length && 
             <div className='table-totals'>
               <Total title="Total: " total={total}/>

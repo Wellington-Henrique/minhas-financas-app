@@ -9,6 +9,7 @@ export const Container = styled.div<ContainerProps>`
   flex-direction: column;
   align-items: center;
   border: solid 1px ${({ theme }) => theme.colors.gray700};
+  z-index: 999;
   
   button {
     background: none;

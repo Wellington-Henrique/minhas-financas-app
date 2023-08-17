@@ -21,7 +21,7 @@ export const dateFormatter = (date: Date, locale='pt-BR') => {
 	}).format(date);
 };
 
-export const relativeDateFormatter = (amount: number, date: Date, locale='pt-BR') => {
+export const relativeDateFormatter = (amount: number, locale='pt-BR') => {
 	return new Intl.RelativeTimeFormat(locale, {
 		numeric: 'auto'
 	}).format(amount, 'day');
